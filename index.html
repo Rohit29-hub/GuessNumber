@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            background: #191919;
+        }
+
+        h1 {
+            color: white;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        #text {
+            width: 220px;
+            height: 20px;
+            font-size: 15px;
+            padding: 5px;
+            color: black;
+        }
+
+        #submit,
+        #show_answer_btn,
+        #reset {
+            background-color: white;
+            color: black;
+            outline: none;
+            width: 120px;
+            height: 33px;
+            font-size: 15px;
+            padding: 5px;
+            border: 2px solid white;
+        }
+
+        #submit,
+        #show_answer_btn,
+        #reset:hover {
+            cursor: pointer;
+        }
+
+        .parent {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #correct_or_wrong {
+            color: white;
+            font-size: 20px;
+        }
+
+        #correct_or_wrong::before {
+            content: 'Result : ';
+            font-size: 20px;
+            color: white;
+
+        }
+
+        #remaining_chances::before {
+            content: 'Remaining Chances : ';
+            font-size: 20px;
+            color: white;
+        }
+
+        #remaining_chances {
+            font-size: 20px;
+            color: white
+        }
+
+        .bigParent {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #show_answer {
+            color: white;
+            font-size: 18px;
+        }
+
+        .buttonContainer {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div class="bigParent">
+        <div class="parent">
+            <h1>Guess The number !</h1>
+            <p id="remaining_chances">10</p>
+            <input type="text" name="text" id="text" placeholder="Enter your Number..">
+            <div class="buttonContainer">
+                <button type="button" id="submit">Submit</button>
+                <button type="button" id="reset">Reset Game..</button>
+                <button type="button" id="show_answer_btn">Show answer</button>
+            </div>
+            <p id="correct_or_wrong">......</p>
+            <p id="show_answer"></p>
+
+        </div>
+    </div>
+
+    <script>
+
+        var remaining_chances = 10;
+        let random_number = parseInt(Math.random() * 10 + 1).toString();
+        const remaining_chances_text = document.getElementById('remaining_chances')
+        const user_input = document.getElementById('text')
+        const result = document.getElementById('correct_or_wrong')
+        const btn = document.getElementById('submit')
+        const show_ans = document.getElementById('show_answer')
+        const show_ans_btn = document.getElementById('show_answer_btn')
+        const reset = document.getElementById('reset')
+        console.log(random_number)
+
+        btn.addEventListener('click', function () {
+            remaining_chances = remaining_chances - 1;
+            if (remaining_chances < 0) {
+                alert('chances is over')
+            } else {
+                if (user_input.value === random_number) {
+                    result.innerHTML = "Correct !!";
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500)
+
+                } else {
+                    result.innerHTML = "Wrong Try again !"
+                    console.log(user_input.value)
+                }
+
+                remaining_chances_text.textContent = remaining_chances;
+            }
+
+        })
+
+        reset.addEventListener('click', function () {
+            window.location.reload();
+        })
+
+        show_ans_btn.addEventListener('click', () => {
+            show_ans.innerHTML = "Computer Number is  : " + random_number;
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500)
+        })
+    </script>
+</body>
+
+</html>
